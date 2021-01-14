@@ -1,6 +1,6 @@
 ---
 title: テストブログ記事
-date: 2020-04-02
+date: 2021-01-14
 tags: ["gatsby", "amplify"]
 ---
 
