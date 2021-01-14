@@ -5,3 +5,5 @@ tags: ["gatsby", "amplify"]
 ---
 
 Hello Gatsby.js!
+
+[ReferenceSite](https://dev.classmethod.jp/articles/gatsbyjs-amplify-deploy/)
