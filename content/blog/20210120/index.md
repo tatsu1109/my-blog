@@ -1,6 +1,6 @@
 ---
 title: React Hooksで子の状態を親で受け取るパターン
-date: 2021-01-19
+date: 2021-01-20
 tags: ["javaScript"]
 ---
 
