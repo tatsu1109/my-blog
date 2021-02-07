@@ -1,5 +1,28 @@
 import React from "react"
 import { Link } from "gatsby"
+import styled from "@emotion/styled"
+
+const Header = styled.header`
+  text-align: center;
+  background-color: #888;
+  color: #fff;
+`
+
+const ContentWrapper = styled.main`
+  display: flex;
+`
+
+const Navigation = styled.div`
+  flex: 1;
+  background-color: #888;
+  color: #fff;
+`
+
+const Content = styled.div`
+  flex: 4;
+  background-color: #eee;
+`
+
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
@@ -22,8 +45,15 @@ const Layout = ({ location, title, children }) => {
 
   return (
     <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <header className="global-header">{header}</header>
-      <main>{children}</main>
+      <Header className="global-header">{header}</Header>
+      <ContentWrapper>
+        <Navigation>
+          menu
+        </Navigation>
+        <Content>
+          {children}
+        </Content>
+      </ContentWrapper>
       <footer>
         © {new Date().getFullYear()}, Built with
         {` `}
