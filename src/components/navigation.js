@@ -34,7 +34,9 @@ const Navigation = ({ color , selectedColor }) => {
             <NavItem>
               <Link to="/profile">Profile</Link>
             </NavItem>
-            <NavItem>App</NavItem>
+            <NavItem>
+              <Link to="/app">App</Link>
+            </NavItem>
         </NavigationWrapper>
     )
 }
