@@ -4,8 +4,7 @@ import styled from "@emotion/styled"
 
 const Navigation = ({ color , selectedColor }) => {
   const NavigationWrapper = styled.ol`
-    flex: 1;
-    width: 200px;
+    grid-area: navigation;
     margin: 0;
     padding: 0;
     list-style-type: none;

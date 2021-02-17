@@ -6,7 +6,7 @@ import LinkCard from "./components/linkCard"
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fill, 300px);
   gap: 15px;
 `
 
@@ -16,12 +16,17 @@ const App = ({ data, location }) => {
   
     return (
         <Layout location={location} title={siteTitle}>
-            <Grid>
+          <Grid>
                 <LinkCard title="sound-recorder" link="https://tatsu1109.github.io/sound-recorder/" description="asdfg"/>
                 <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
                 <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
                 <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-            </Grid>
+                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
+                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
+                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
+                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
+                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
+          </Grid>
         </Layout>
     )
 }

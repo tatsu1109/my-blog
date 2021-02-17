@@ -1,5 +1,5 @@
 ---
-title: REact + Emotionでカード型レイアウトを作成
+title: React + Emotionでカード型レイアウトを作成
 date: 2021-02-12
 tags: ["React", "Emotion"]
 ---

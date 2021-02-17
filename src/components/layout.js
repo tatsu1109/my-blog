@@ -3,53 +3,55 @@ import { Link } from "gatsby"
 import styled from "@emotion/styled"
 import Navigation from "./navigation"
 
-const Header = styled.header`
-  text-align: center;
- 	background-color: #eeeeee; 
+const Body = styled.div`
+  display: grid;
+  height: 100vh;
+  grid-template-rows: 70px 1fr 70px;
+  grid-template-columns: 1fr 5fr;
+  grid-template-areas:
+    "header header"
+    "navigation content"
+    "footer footer";
 `
 
-const ContentWrapper = styled.main`
-  display: flex;
+const Header = styled.header`
+  text-align: center;
+  white-space: nowrap;
+ 	background-color: #eeeeee;
+  grid-area: header; 
 `
 
 const Content = styled.div`
-  flex: 4;
+  grid-area: content;
+  overflow-y: scroll;
+`
+
+const Footer = styled.footer`
+ 	background-color: #eeeeee;
+  grid-area: footer; 
 `
 
 const Layout = ({ location, title, children }) => {
   const rootPath = `${__PATH_PREFIX__}/`
   const isRootPath = location.pathname === rootPath
-  let header
-
-  if (isRootPath) {
-    header = (
-      <h1 className="main-heading">
-        <Link to="/">{title}</Link>
-      </h1>
-    )
-  } else {
-    header = (
-      <Link className="header-link-home" to="/">
-        {title}
-      </Link>
-    )
-  }
 
   return (
-    <div className="global-wrapper" data-is-root-path={isRootPath}>
-      <Header className="global-header">{header}</Header>
-      <ContentWrapper>
-        <Navigation color="#eeeeee" selectedColor="#1b2538"/>
-        <Content>
-          {children}
-        </Content>
-      </ContentWrapper>
-      <footer>
+    <Body data-is-root-path={isRootPath}>
+      <Header>
+        <h1 className="main-heading">
+          <Link to="/">{title}</Link>
+        </h1>
+      </Header>
+      <Navigation color="#eeeeee" selectedColor="#1b2538"/>
+      <Content>
+        {children}
+      </Content>
+      <Footer>
         © {new Date().getFullYear()}, Built with
         {` `}
         <a href="https://www.gatsbyjs.com">Gatsby</a>
-      </footer>
-    </div>
+      </Footer>
+    </Body>
   )
 }
 
