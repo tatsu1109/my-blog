@@ -6,7 +6,7 @@ import Navigation from "./navigation"
 const Body = styled.div`
   display: grid;
   height: 100vh;
-  grid-template-rows: 70px 1fr 70px;
+  grid-template-rows: 70px 1fr 30px;
   grid-template-columns: 1fr 5fr;
   grid-template-areas:
     "header header"

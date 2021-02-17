@@ -10,22 +10,17 @@ const Grid = styled.div`
   gap: 15px;
 `
 
-// TODO Github APIを叩いて自分のGithub Pagesを持ってこれるようにする？
 const App = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
+  const githubRepoList = data.allGithubData.edges[0].node.data.allGithubData.edges
   
     return (
         <Layout location={location} title={siteTitle}>
           <Grid>
-                <LinkCard title="sound-recorder" link="https://tatsu1109.github.io/sound-recorder/" description="asdfg"/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
-                <LinkCard title="test" description="12345678901234567890 1234567890123456789012345678901234567890 "/>
+            {githubRepoList.map((repo, index) => {
+              const repoData = repo.node 
+              return <LinkCard key={index} title={repoData.name} link={repoData.homepageUrl} description={repoData.description}/>
+            }) }
           </Grid>
         </Layout>
     )
@@ -38,6 +33,24 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+      }
+    }
+    allGithubData {
+      edges {
+        node {
+          data {
+            allGithubData {
+              edges {
+                node {
+                  name
+                  description
+                  url
+                  homepageUrl
+                }
+              }
+            }
+          }
+        }
       }
     }
   }

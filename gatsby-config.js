@@ -14,6 +14,32 @@ module.exports = {
   plugins: [
     `gatsby-plugin-emotion`,
     {
+      resolve: `gatsby-source-github-api`,
+      options: {
+        token: process.env.GITHUB_API_TOKEN,
+        graphQLQuery: `
+        query ($q: String="", $nFirst: Int=0) {
+          allGithubData: search(query: $q, type: REPOSITORY, first: $nFirst) {
+            edges {
+              node {
+                ... on Repository {
+                  name
+                  description
+                  url
+                  homepageUrl
+                }
+              }
+            }
+          }
+        }
+        `,
+        variables: {
+          q: `user:tatsu1109`,
+          nFirst: 10
+        }
+      }
+    },
+    {
       resolve: `gatsby-source-filesystem`,
       options: {
         path: `${__dirname}/content/blog`,
