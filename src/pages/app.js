@@ -19,7 +19,12 @@ const App = ({ data, location }) => {
           <Grid>
             {githubRepoList.map((repo, index) => {
               const repoData = repo.node 
-              return <LinkCard key={index} title={repoData.name} link={repoData.homepageUrl} description={repoData.description}/>
+              return <LinkCard
+                key={index}
+                title={repoData.name}
+                appLink={repoData.homepageUrl}
+                githubLink={repoData.url}
+                description={repoData.description} />
             }) }
           </Grid>
         </Layout>
