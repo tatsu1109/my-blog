@@ -1,6 +1,6 @@
 ---
 title: GatsbyのソースプラグインとしてGithub APIのGraphQL呼び出しを追加
-date: 2021-02-12
+date: 2021-02-17
 tags: ["Gatsby", "Github API"]
 ---
 
