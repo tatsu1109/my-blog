@@ -1,6 +1,9 @@
+require("dotenv").config({
+  path: `.env.${process.env.NODE_ENV}`,
+})
 module.exports = {
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
+    title: `日々のメモ帳`,
     author: {
       name: `Tatsuya Taguchi`,
       summary: `test`,
