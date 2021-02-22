@@ -1,14 +1,60 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import styled from "@emotion/styled"
+import { Link, graphql, useStaticQuery } from "gatsby"
 
 import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 
-const BlogIndex = ({ data, location }) => {
+const Wrapper = styled.div`
+  display: flex;
+`
+
+const BlogList = styled.ol`
+  flex: 4
+`
+
+const TagsList = styled.ol`
+  flex: 1;
+  padding-top: var(--spacing-8);
+  list-style-type:none;
+`
+
+
+const BlogIndex = ({ location }) => {
+  const data = useStaticQuery(graphql`
+  query{
+    site {
+      siteMetadata {
+        title
+      }
+    }
+    allMarkdownRemark(
+      sort: { 
+        fields: [frontmatter___date], 
+        order: DESC, 
+      }) {
+      nodes {
+        fields {
+          slug
+        }
+        frontmatter {
+          date(formatString: "MMMM DD, YYYY")
+          title
+          tags
+          description
+        }
+      }
+      group(field: frontmatter___tags) {
+          fieldValue
+          totalCount
+      }
+    }
+  }`)
+
   const siteTitle = data.site.siteMetadata?.title || `Title`
   const posts = data.allMarkdownRemark.nodes
-
+  const tags = data.allMarkdownRemark.group
   if (posts.length === 0) {
     return (
       <Layout location={location} title={siteTitle}>
@@ -27,7 +73,8 @@ const BlogIndex = ({ data, location }) => {
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       {/* <Bio /> */}
-      <ol style={{ listStyle: `none` }}>
+      <Wrapper>
+      <BlogList style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
@@ -45,37 +92,40 @@ const BlogIndex = ({ data, location }) => {
                     </Link>
                   </h2>
                   <small>{post.frontmatter.date}</small>
+                  <div>
+                    {/* {post.frontmatter.tags !== null
+                      ? post.frontmatter.tags.map(
+                        tag => <button
+                          onClick={setPosts(posts.filter(post => post === tag))}
+                        >
+                          {tag}
+                        </button>)
+                      : <button>noTag</button>} */}
+                  </div>
                 </section>
               </article>
             </li>
           )
         })}
-      </ol>
+      </BlogList>
+      <TagsList>
+      {
+          tags.map(tag => <li>{ `${tag.fieldValue}(${tag.totalCount})` }</li>)
+      }
+      </TagsList>
+    </Wrapper>
     </Layout>
   )
 }
 
 export default BlogIndex
 
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      nodes {
-        excerpt
-        fields {
-          slug
-        }
-        frontmatter {
-          date(formatString: "MMMM DD, YYYY")
-          title
-          description
-        }
-      }
-    }
-  }
-`
+// export const pageQuery = graphql`
+//   query {
+//     site {
+//       siteMetadata {
+//         title
+//       }
+//     }
+//   }
+// `
