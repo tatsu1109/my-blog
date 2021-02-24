@@ -1,8 +1,11 @@
 ---
 title: Gatsbyのブログ記事のパス(slug)を変更
-date: 2021-02-18
+date: 2021-02-22
 tags: ["Gatsby"]
 ---
+
+[参考](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/#onCreateNode)
+[参考 2](https://www.gatsbyjs.com/plugins/gatsby-source-filesystem/)
 
 - gatsby-node.js を作成
 - onCreateNode 関数を exports する

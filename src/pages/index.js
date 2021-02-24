@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState }from "react"
 import styled from "@emotion/styled"
 import { Link, graphql, useStaticQuery } from "gatsby"
 
@@ -53,7 +53,8 @@ const BlogIndex = ({ location }) => {
   }`)
 
   const siteTitle = data.site.siteMetadata?.title || `Title`
-  const posts = data.allMarkdownRemark.nodes
+  // const posts = data.allMarkdownRemark.nodes
+  const [posts, setPosts] = useState(data.allMarkdownRemark.nodes)
   const tags = data.allMarkdownRemark.group
   if (posts.length === 0) {
     return (
@@ -73,8 +74,9 @@ const BlogIndex = ({ location }) => {
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       {/* <Bio /> */}
+      <button onClick={() => setPosts(data.allMarkdownRemark.nodes)}>Search Reset</button>
       <Wrapper>
-      <BlogList style={{ listStyle: `none` }}>
+        <BlogList style={{ listStyle: `none` }}>
         {posts.map(post => {
           const title = post.frontmatter.title || post.fields.slug
 
@@ -93,27 +95,37 @@ const BlogIndex = ({ location }) => {
                   </h2>
                   <small>{post.frontmatter.date}</small>
                   <div>
-                    {/* {post.frontmatter.tags !== null
+                    {post.frontmatter.tags !== null
                       ? post.frontmatter.tags.map(
-                        tag => <button
-                          onClick={setPosts(posts.filter(post => post === tag))}
-                        >
-                          {tag}
-                        </button>)
-                      : <button>noTag</button>} */}
+                        buttonTag =>
+                          <button
+                            onClick={
+                              () => setPosts(
+                                posts.filter(post => {
+                                  if (post.frontmatter.tags !== null) {
+                                    return post.frontmatter.tags.find(tag => tag === buttonTag)  
+                                  }
+                                })
+                              )
+                            }
+                          >
+                            {buttonTag}
+                          </button>
+                      )
+                      : <button>noTag</button>}
                   </div>
                 </section>
               </article>
             </li>
           )
         })}
-      </BlogList>
-      <TagsList>
-      {
-          tags.map(tag => <li>{ `${tag.fieldValue}(${tag.totalCount})` }</li>)
-      }
-      </TagsList>
-    </Wrapper>
+        </BlogList>
+        <TagsList>
+          {
+            tags.map(tag => <li>{`${tag.fieldValue}(${tag.totalCount})`}</li>)
+          }
+        </TagsList>
+      </Wrapper>
     </Layout>
   )
 }
